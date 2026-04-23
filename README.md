@@ -1,119 +1,220 @@
-# RideNova: AI-Driven Price Optimization for Electric Scooters
+# 🚀 RideNova  
+> ⚡ AI-Powered Electric Scooter Price Optimization System
 
-RideNova is an end-to-end starter project for electric scooter pricing intelligence in the Indian market. It combines Selenium scraping, MongoDB-ready raw storage, feature engineering, machine learning, demand simulation, and a React dashboard.
+---
 
-## What Is Included
+## 📌 Overview
 
-- `backend/app/scraper`: BikeDekho scraper using the XPath pattern from your screenshot
-- `backend/app/storage`: MongoDB Atlas upsert support
-- `backend/app/pipeline`: cleaning and feature engineering
-- `backend/app/ml`: price model training and inference
-- `backend/app/services`: price-vs-demand simulation and feature recommendations
-- `backend/app/main.py`: FastAPI endpoints
-- `frontend`: React + Vite dashboard for input, output, graph, and XPath display
+**RideNova** is a full-stack AI-driven platform that helps optimize electric scooter pricing using real-world market data.
 
-## Architecture
+It not only predicts the **optimal price**, but also:
+- 📈 Estimates demand
+- 📊 Simulates price vs demand
+- 💡 Suggests feature upgrades to increase product value
 
-```text
+---
+
+## 🎯 Problem Statement
+
+Pricing electric scooters is complex due to:
+
+- Varying specifications (battery, range, power)
+- Competitive market dynamics
+- Customer expectations and features
+
+RideNova provides a **data-driven solution** to make smarter pricing and product decisions.
+
+---
+
+## 🧠 Key Features
+
+- 🔍 Web scraping from BikeDekho (Selenium)
+- ☁️ Cloud database (MongoDB Atlas)
+- 🧹 Data cleaning & feature engineering
+- 🤖 ML model using **CatBoost Regressor**
+- 📉 Price vs Demand simulation engine
+- 💡 Feature upgrade recommendations
+- 🖥️ Interactive React dashboard
+
+---
+
+## 🏗️ System Architecture
+
+
 Web Scraper (Selenium)
-        ↓
-Raw Data Storage (MongoDB Atlas)
-        ↓
+↓
+MongoDB Atlas
+↓
 Data Cleaning & Feature Engineering
-        ↓
-ML Model Layer
-   ├── Price Prediction
-   └── Demand Modeling
-        ↓
+↓
+ML Model (CatBoost)
+↓
 Simulation Engine
-        ↓
+↓
 Frontend Dashboard (React)
-```
 
-## XPath Strategy Used
 
-These selectors are already wired into the scraper:
+---
 
-- Bike container: `//li[@data-type='autofitmobile']`
-- Bike name: `.//a[contains(@class, 'model-name')]`
-- Price: `.//div[contains(@class,'price')]`
-- Link: `.//a[contains(@class, 'model-name')]`
+## ⚙️ Tech Stack
 
-Detail extraction is handled with label-based XPath lookups so the scraper is more robust when page layouts shift.
+### 🔹 Backend & ML
+- Python  
+- CatBoost  
+- Pandas, NumPy  
 
-## Backend Setup
+### 🔹 Scraping
+- Selenium  
+- Undetected ChromeDriver  
 
-From the project root:
+### 🔹 Database
+- MongoDB Atlas  
 
-```powershell
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+### 🔹 Frontend
+- React.js  
+- Tailwind CSS  
+- Chart.js / Recharts  
 
-API runs at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+---
 
-### API Endpoints
+## 📄 Modules
 
-- `GET /health`
-- `POST /train`
-- `POST /predict`
-- `POST /simulate`
+### 1️⃣ Data Collection
+- Scrapes scooter data (price, specs, features)
+- Uses XPath-based extraction
+- Anti-blocking strategies implemented
 
-### Example Request
+---
+
+### 2️⃣ Data Storage
+- MongoDB Atlas (`ev_pricing`)
+- Collection: `scooters_raw`
+- Upsert to prevent duplicates
+
+---
+
+### 3️⃣ Data Cleaning & Feature Engineering
+- Converts raw data into ML-ready format
+- Engineered features:
+  - `efficiency`
+  - `price_per_km`
+  - `charging_speed`
+
+---
+
+### 4️⃣ Machine Learning (CatBoost)
+- Uses **CatBoost Regressor**
+- Handles structured data efficiently
+- Evaluated using RMSE & R²
+
+---
+
+### 5️⃣ Simulation Engine
+
+
+User Input
+↓
+Generate Price Range
+↓
+Predict Demand
+↓
+Analyze Feature Impact
+↓
+Suggest Improvements
+↓
+Return Results
+
+
+Outputs:
+- 📊 Price vs Demand curve  
+- 💰 Optimal price  
+- 📈 Profit estimation  
+
+---
+
+### 💡 Feature Optimization (Unique)
+
+RideNova suggests:
+
+> “What features should be added to increase price?”
+
+Example:
+- 🔋 Increase battery → +₹12,000  
+- 🛑 Add ABS → +₹5,000  
+- 🧭 Add Navigation → +₹4,000  
+
+---
+
+### 6️⃣ Frontend Dashboard
+
+- Input scooter specifications  
+- View predicted price & demand  
+- Visualize demand curve  
+- Explore feature upgrade suggestions  
+
+---
+
+
+Outputs:
+- Price vs Demand graph  
+- Optimal price  
+- Demand estimation  
+
+---
+
+### 💡 Feature Optimization (Unique)
+
+System suggests how to increase price:
+
+Example:
+- Increase battery → +₹12,000  
+- Add ABS → +₹5,000  
+- Add Navigation → +₹4,000  
+
+---
+
+### 6. Frontend
+
+- Input scooter specs  
+- View price & demand  
+- See demand graph  
+- Get feature suggestions  
+
+---
+
+## 📊 Example Output
 
 ```json
 {
-  "battery_kwh": 3.5,
-  "range_km": 140,
-  "charging_time_hr": 5.0,
-  "motor_power_kw": 5.5,
-  "weight_kg": 112,
-  "abs": 1,
-  "navigation": 1,
-  "cruise_control": 0,
-  "traction_control": 0,
-  "rating": 4.3,
-  "review_count": 980,
-  "sentiment_score": 0.47,
-  "target_margin": 0.18
+  "recommended_price": 105000,
+  "expected_demand": 7200,
+  "suggestions": [
+    "Increase battery capacity",
+    "Add ABS",
+    "Add Navigation"
+  ]
 }
-```
 
-## Scraper Setup
+## 🚀 Setup
 
-If you want to scrape BikeDekho and push records to MongoDB Atlas:
+Clone repo
+```bash
+git clone https://github.com/your-username/ridenova.git
+cd ridenova
 
-1. Copy `.env.example` to `.env`
-2. Add your `MONGO_URI`
-3. Run:
+##Install dependencies
+pip install -r requirements.txt
 
-```powershell
-cd backend
-python run_scraper.py
-```
+##Run scraper
+python scraper.py
 
-`run_scraper.py` opens the listing page, extracts links with the screenshot XPath selectors, visits detail pages, and upserts records when MongoDB is configured.
+##Train model
+python train_model.py
 
-## Frontend Setup
+##Run backend
+python app.py
 
-From [frontend](C:\Users\Kalyani\Downloads\project\RideNova\frontend):
-
-```powershell
-cmd /c npm install
-cmd /c npm run dev
-```
-
-Frontend runs at [http://127.0.0.1:5173](http://127.0.0.1:5173) and is already configured to call the FastAPI backend.
-
-## Sample Data
-
-A starter dataset is included at [sample_scooters.csv](C:\Users\Kalyani\Downloads\project\RideNova\backend\app\data\sample_scooters.csv) so the ML pipeline works even before live scraping is connected.
-
-## Notes
-
-- `xgboost` is included as an optional candidate model; if unavailable, training still works with the other regressors.
-- The demand model is currently a simulation-oriented heuristic on top of the value score and predicted price.
-- The project is structured so you can later swap in real demand history, sentiment analysis, and more marketplaces like ZigWheels.
+## Run frontend
+cd frontend
+npm install
+npm start
