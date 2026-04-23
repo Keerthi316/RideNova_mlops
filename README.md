@@ -1,220 +1,87 @@
-# 🚀 RideNova  
-> ⚡ AI-Powered Electric Scooter Price Optimization System
+# 🚀 RideNova: AI-Powered EV Price Optimization
 
----
-
-## 📌 Overview
-
-**RideNova** is a full-stack AI-driven platform that helps optimize electric scooter pricing using real-world market data.
-
-It not only predicts the **optimal price**, but also:
-- 📈 Estimates demand
-- 📊 Simulates price vs demand
-- 💡 Suggests feature upgrades to increase product value
-
----
-
-## 🎯 Problem Statement
-
-Pricing electric scooters is complex due to:
-
-- Varying specifications (battery, range, power)
-- Competitive market dynamics
-- Customer expectations and features
-
-RideNova provides a **data-driven solution** to make smarter pricing and product decisions.
-
----
-
-## 🧠 Key Features
-
-- 🔍 Web scraping from BikeDekho (Selenium)
-- ☁️ Cloud database (MongoDB Atlas)
-- 🧹 Data cleaning & feature engineering
-- 🤖 ML model using **CatBoost Regressor**
-- 📉 Price vs Demand simulation engine
-- 💡 Feature upgrade recommendations
-- 🖥️ Interactive React dashboard
+RideNova is an end-to-end MLOps project designed to scrape, analyze, and predict the market value of electric scooters in the Indian market. It utilizes machine learning to provide accurate price estimations based on technical specifications and market features.
 
 ---
 
 ## 🏗️ System Architecture
 
-
-Web Scraper (Selenium)
-↓
-MongoDB Atlas
-↓
-Data Cleaning & Feature Engineering
-↓
-ML Model (CatBoost)
-↓
-Simulation Engine
-↓
-Frontend Dashboard (React)
-
+1.  **Data Acquisition**: A robust scraper using Selenium and BeautifulSoup to extract real-time data from automotive portals.
+2.  **Feature Engineering**: Data cleaning and enrichment pipeline that calculates performance metrics and usage classifications.
+3.  **Inference Engine**: A FastAPI-based backend serving a pre-trained **CatBoost** regression model.
+4.  **User Interface**: A modern, responsive web frontend for interactive price prediction.
 
 ---
 
-## ⚙️ Tech Stack
+## 📂 Project Structure
 
-### 🔹 Backend & ML
-- Python  
-- CatBoost  
-- Pandas, NumPy  
-
-### 🔹 Scraping
-- Selenium  
-- Undetected ChromeDriver  
-
-### 🔹 Database
-- MongoDB Atlas  
-
-### 🔹 Frontend
-- React.js  
-- Tailwind CSS  
-- Chart.js / Recharts  
+```text
+RideNova_mlops/
+├── backend/
+│   ├── main.py                 # FastAPI Prediction Service
+│   ├── catboost_model.pkl      # Trained CatBoost Regressor
+│   └── model_columns.pkl       # Feature alignment metadata
+├── frontend/
+│   ├── ev-landing.html         # Project Landing Page
+│   └── ev-price-predictor.html # Interactive Prediction UI
+├── newscraper.py               # Selenium-based Web Scraper
+├── features.py                 # Data Cleaning & Feature Engineering
+└── final_scooters.xlsx         # Raw Dataset
+```
 
 ---
 
-## 📄 Modules
+## 🛠️ Tech Stack
 
-### 1️⃣ Data Collection
-- Scrapes scooter data (price, specs, features)
-- Uses XPath-based extraction
-- Anti-blocking strategies implemented
-
----
-
-### 2️⃣ Data Storage
-- MongoDB Atlas (`ev_pricing`)
-- Collection: `scooters_raw`
-- Upsert to prevent duplicates
+-   **Backend**: Python, FastAPI, Joblib
+-   **Machine Learning**: CatBoost, Pandas, Scikit-learn
+-   **Web Scraping**: Selenium, BeautifulSoup4
+-   **Frontend**: HTML5, CSS3 (Syne & DM Sans typography), Vanilla JavaScript
 
 ---
 
-### 3️⃣ Data Cleaning & Feature Engineering
-- Converts raw data into ML-ready format
-- Engineered features:
-  - `efficiency`
-  - `price_per_km`
-  - `charging_speed`
+## 🚀 Getting Started
 
----
-
-### 4️⃣ Machine Learning (CatBoost)
-- Uses **CatBoost Regressor**
-- Handles structured data efficiently
-- Evaluated using RMSE & R²
-
----
-
-### 5️⃣ Simulation Engine
-
-
-User Input
-↓
-Generate Price Range
-↓
-Predict Demand
-↓
-Analyze Feature Impact
-↓
-Suggest Improvements
-↓
-Return Results
-
-
-Outputs:
-- 📊 Price vs Demand curve  
-- 💰 Optimal price  
-- 📈 Profit estimation  
-
----
-
-### 💡 Feature Optimization (Unique)
-
-RideNova suggests:
-
-> “What features should be added to increase price?”
-
-Example:
-- 🔋 Increase battery → +₹12,000  
-- 🛑 Add ABS → +₹5,000  
-- 🧭 Add Navigation → +₹4,000  
-
----
-
-### 6️⃣ Frontend Dashboard
-
-- Input scooter specifications  
-- View predicted price & demand  
-- Visualize demand curve  
-- Explore feature upgrade suggestions  
-
----
-
-
-Outputs:
-- Price vs Demand graph  
-- Optimal price  
-- Demand estimation  
-
----
-
-### 💡 Feature Optimization (Unique)
-
-System suggests how to increase price:
-
-Example:
-- Increase battery → +₹12,000  
-- Add ABS → +₹5,000  
-- Add Navigation → +₹4,000  
-
----
-
-### 6. Frontend
-
-- Input scooter specs  
-- View price & demand  
-- See demand graph  
-- Get feature suggestions  
-
----
-
-## 📊 Example Output
-
-```json
-{
-  "recommended_price": 105000,
-  "expected_demand": 7200,
-  "suggestions": [
-    "Increase battery capacity",
-    "Add ABS",
-    "Add Navigation"
-  ]
-}
-
-## 🚀 Setup
-
-Clone repo
+### 1. Environment Setup
+Create a virtual environment and install dependencies:
 ```bash
-git clone https://github.com/your-username/ridenova.git
-cd ridenova
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install fastapi uvicorn pandas catboost selenium beautifulsoup4 openpyxl joblib
+```
 
-##Install dependencies
-pip install -r requirements.txt
+### 2. Data Collection & Processing
+To refresh the dataset and process features:
+```bash
+python newscraper.py   # Scrapes latest data to electric_scooters.csv
+python features.py     # Cleans and engineers features for the model
+```
 
-##Run scraper
-python scraper.py
+### 3. Running the Backend
+Start the FastAPI server:
+```bash
+cd backend
+uvicorn main:app --reload
+```
+The API will be available at `http://127.0.0.1:8000`.
 
-##Train model
-python train_model.py
+### 4. Launching the Frontend
+Simply open `frontend/ev-landing.html` in your browser. Ensure the backend is running to enable real-time predictions in the `ev-price-predictor.html` page.
 
-##Run backend
-python app.py
+---
 
-## Run frontend
-cd frontend
-npm install
-npm start
+## 🧠 Model Features
+
+The prediction model evaluates several key parameters:
+-   **Performance**: Battery Capacity (kWh), Range (km), Top Speed (kmph).
+-   **Physical**: Motor Power (kW), Vehicle Weight (kg), Load Capacity.
+-   **Convenience**: Under-seat Storage, USB Charging, Anti-theft Alarm.
+-   **Derived**: Performance Score, Usage Type, Power-to-Weight ratio.
+
+---
+
+## 📊 Future Roadmap
+- [ ] Integration with MongoDB Atlas for persistent storage.
+- [ ] Automated model retraining pipeline (MLflow).
+- [ ] Containerization with Docker for cloud deployment.
+- [ ] Enhanced demand simulation engine.
