@@ -85,3 +85,4 @@ The prediction model evaluates several key parameters:
 - [ ] Automated model retraining pipeline (MLflow).
 - [ ] Containerization with Docker for cloud deployment.
 - [ ] Enhanced demand simulation engine.
+
